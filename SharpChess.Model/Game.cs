@@ -569,6 +569,7 @@ namespace SharpChess.Model
         /// </summary>
         public static void PausePlay()
         {
+            Console.WriteLine("Changes Can Be Made!!!");
             PlayerToPlay.Clock.Stop();
             PlayerToPlay.Brain.ForceImmediateMove();
             GamePaused();
