@@ -809,6 +809,17 @@ namespace SharpChess
             Game.EnablePondering = this.chkEnablePondering.Checked;
             Game.UseRandomOpeningMoves = this.chkUseRandomOpeningMoves.Checked;
 
+            if (this.chessStandard_radioButton.Checked)
+            {
+                Console.WriteLine("<--Standard Game Selected -->");
+                Game.Type = Game.GameType.Standard;
+            }
+            else
+            {
+                Console.WriteLine("<-- Chess960 Selected -->");
+                Game.Type = Game.GameType.Chess960;
+            }
+
             this.m_blnConfirmed = true;
 
             this.Close();

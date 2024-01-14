@@ -70,3 +70,6 @@ TestResults/
 ######################
 *.vsp
 *.psess
+
+# other
+.vs/*

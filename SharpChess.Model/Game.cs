@@ -201,6 +201,12 @@ namespace SharpChess.Model
             End
         }
 
+        public enum GameType
+        {
+            Standard,
+            Chess960
+        }
+
         #endregion
 
         #region Public Properties
@@ -259,6 +265,9 @@ namespace SharpChess.Model
         ///   Gets or sets game Difficulty Level.
         /// </summary>
         public static int DifficultyLevel { get; set; }
+
+        // Added Game Type !!
+        public static GameType Type { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether Edit Mode is Active.
@@ -458,6 +467,11 @@ namespace SharpChess.Model
             }
         }
 
+        public static void TestingStuff()
+        {
+            Console.WriteLine("<-- TESTING -->\n" + PlayerBlack.Pieces);
+        }
+
         /// <summary>
         ///   Gets ThreadCounter.
         /// </summary>
@@ -548,6 +562,7 @@ namespace SharpChess.Model
         public static void New()
         {
             New(string.Empty);
+            TestingStuff();
         }
 
         /// <summary>

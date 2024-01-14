@@ -2919,6 +2919,7 @@ namespace SharpChess
         /// </param>
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.Show();
             Game.PlayerWhite.Brain.MoveConsideredEvent += this.Player_MoveConsidered;
             Game.PlayerBlack.Brain.MoveConsideredEvent += this.Player_MoveConsidered;
             Game.PlayerWhite.Brain.ThinkingBeginningEvent += this.Player_ThinkingBeginning;

@@ -89,12 +89,12 @@ namespace SharpChess.Model
         /// </summary>
         protected override sealed void SetPiecesAtStartingPositions()
         {
-            this.Pieces.Add(this.King = new Piece(Piece.PieceNames.King, this, 4, 7, Piece.PieceIdentifierCodes.BlackKing));
+            this.Pieces.Add(this.King = new Piece(Piece.PieceNames.King, this, 7, 7, Piece.PieceIdentifierCodes.BlackKing));
 
             this.Pieces.Add(new Piece(Piece.PieceNames.Queen, this, 3, 7, Piece.PieceIdentifierCodes.BlackQueen));
 
             this.Pieces.Add(new Piece(Piece.PieceNames.Rook, this, 0, 7, Piece.PieceIdentifierCodes.BlackQueensRook));
-            this.Pieces.Add(new Piece(Piece.PieceNames.Rook, this, 7, 7, Piece.PieceIdentifierCodes.BlackKingsRook));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Rook, this, 4, 7, Piece.PieceIdentifierCodes.BlackKingsRook));
 
             this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, 2, 7, Piece.PieceIdentifierCodes.BlackQueensBishop));
             this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, 5, 7, Piece.PieceIdentifierCodes.BlackKingsBishop));
