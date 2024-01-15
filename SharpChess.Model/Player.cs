@@ -73,6 +73,12 @@ namespace SharpChess.Model
             Black
         }
 
+        public enum GameType
+        {
+            Standard,
+            Chess960
+        }
+
         /// <summary>
         /// Player intellegence: Human or Computer.
         /// </summary>

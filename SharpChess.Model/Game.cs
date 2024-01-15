@@ -80,6 +80,7 @@ namespace SharpChess.Model
 
             PlayerWhite = new PlayerWhite();
             PlayerBlack = new PlayerBlack();
+
             PlayerToPlay = PlayerWhite;
             Board.EstablishHashKey();
             OpeningBookSimple.Initialise();
@@ -469,7 +470,9 @@ namespace SharpChess.Model
 
         public static void TestingStuff()
         {
-            Console.WriteLine("<-- TESTING -->\n" + PlayerBlack.Pieces);
+            Console.WriteLine("<-- TESTING START -->");
+            Console.WriteLine("<-- Game Type: " + Type + " -->");
+            Console.WriteLine("<-- TESTING END -->");
         }
 
         /// <summary>
@@ -562,6 +565,7 @@ namespace SharpChess.Model
         public static void New()
         {
             New(string.Empty);
+
             TestingStuff();
         }
 
@@ -584,7 +588,6 @@ namespace SharpChess.Model
         /// </summary>
         public static void PausePlay()
         {
-            Console.WriteLine("Changes Can Be Made!!!");
             PlayerToPlay.Clock.Stop();
             PlayerToPlay.Brain.ForceImmediateMove();
             GamePaused();
