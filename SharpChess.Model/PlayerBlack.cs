@@ -23,6 +23,9 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
+using System;
+using System.Collections.Generic;
+
 namespace SharpChess.Model
 {
     /// <summary>
@@ -41,6 +44,21 @@ namespace SharpChess.Model
             this.Intellegence = PlayerIntellegenceNames.Computer;
 
             this.SetPiecesAtStartingPositions();
+        }
+
+        public PlayerBlack(GameType gameType)
+        {
+            this.Colour = PlayerColourNames.Black;
+            this.Intellegence = PlayerIntellegenceNames.Computer;
+
+            if (gameType == GameType.Standard)
+            {
+                this.SetPiecesAtStartingPositions();
+            }
+            else
+            {
+
+            }
         }
 
         #endregion
@@ -84,11 +102,26 @@ namespace SharpChess.Model
 
         #region Methods
 
+        public bool isAnEvenSpace(int space)
+        {
+            if (space % 2 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// The set pieces at starting positions.
         /// </summary>
         protected override sealed void SetPiecesAtStartingPositions()
         {
+            Console.WriteLine("If Square Is On An Even Index: " + isAnEvenSpace(2));
+            Console.WriteLine("If Square Is On An Odd Index: " + isAnEvenSpace(1));
+
             this.Pieces.Add(this.King = new Piece(Piece.PieceNames.King, this, 4, 7, Piece.PieceIdentifierCodes.BlackKing));
 
             this.Pieces.Add(new Piece(Piece.PieceNames.Queen, this, 3, 7, Piece.PieceIdentifierCodes.BlackQueen));
@@ -110,6 +143,40 @@ namespace SharpChess.Model
             this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 5, 6, Piece.PieceIdentifierCodes.BlackPawn6));
             this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 6, 6, Piece.PieceIdentifierCodes.BlackPawn7));
             this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 7, 6, Piece.PieceIdentifierCodes.BlackPawn8));
+        }
+
+        protected void Chess960Start()
+        {
+            Random random = new Random();
+            List<int> list = new List<int>();
+            bool BishopOnEvenSquare;
+            int number;
+
+            #region Placing The Bishops
+            // Bishop One
+            number = random.Next(8);
+            list.Add(number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackQueensBishop));
+            BishopOnEvenSquare = isAnEvenSpace(number);
+
+            // Bishop Two
+            number = random.Next(8);
+            while (list.Contains((int)number))
+            {
+                number = random.Next(8);
+            }
+
+            list.Add(number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackKingsBishop));
+            #endregion
+
+            #region Placing Rooks
+            number = random.Next(8);
+            while (!list.Contains((int)number))
+            {
+                number = random.Next(8);
+            }
+
         }
 
         #endregion

@@ -134,6 +134,8 @@ namespace SharpChess.Model
         /// </summary>
         public Brain Brain { get; private set; }
 
+        public GameType gameType { get; private set; }
+
         /// <summary>
         ///   Gets a value indicating whether the player can claim a fifty-nove draw.
         /// </summary>
