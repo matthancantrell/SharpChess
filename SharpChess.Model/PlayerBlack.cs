@@ -53,11 +53,14 @@ namespace SharpChess.Model
 
             if (gameType == GameType.Standard)
             {
+                Console.WriteLine("Black: Standard Start");
                 this.SetPiecesAtStartingPositions();
             }
             else
             {
-
+                Console.WriteLine("Black: Chess960 Start");
+                Chess960Start();
+                //this.SetPiecesAtStartingPositions();
             }
         }
 
@@ -104,7 +107,7 @@ namespace SharpChess.Model
 
         public bool isAnEvenSpace(int space)
         {
-            if (space % 2 == 0)
+            if ((space % 2) == 0)
             {
                 return true;
             }
@@ -119,9 +122,6 @@ namespace SharpChess.Model
         /// </summary>
         protected override sealed void SetPiecesAtStartingPositions()
         {
-            Console.WriteLine("If Square Is On An Even Index: " + isAnEvenSpace(2));
-            Console.WriteLine("If Square Is On An Odd Index: " + isAnEvenSpace(1));
-
             this.Pieces.Add(this.King = new Piece(Piece.PieceNames.King, this, 4, 7, Piece.PieceIdentifierCodes.BlackKing));
 
             this.Pieces.Add(new Piece(Piece.PieceNames.Queen, this, 3, 7, Piece.PieceIdentifierCodes.BlackQueen));
@@ -149,25 +149,23 @@ namespace SharpChess.Model
         {
             Random random = new Random();
             List<int> list = new List<int>();
-            bool BishopOnEvenSquare;
+            bool BishopOnEvenSquare = false;
             int number;
 
             #region Placing The Bishops
             // Bishop One
-            number = random.Next(8);
-            list.Add(number);
-            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackQueensBishop));
-            BishopOnEvenSquare = isAnEvenSpace(number);
+            number = random.Next(8); // Generates Random Number For Location On Board
+            list.Add(number); // Adds Numbers To List
+            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackQueensBishop)); // Places Piece In Pieces Container
+            BishopOnEvenSquare = isAnEvenSpace(number); // Determines If Bishop Is On An Even Square
 
             // Bishop Two
-            number = random.Next(8);
-            while (list.Contains((int)number))
+            while (list.Contains(number) ||  BishopOnEvenSquare == isAnEvenSpace(number)) // While The Number Generated Is In The List OR Is Also On The Same Type Of Space As The First Bishop
             {
-                number = random.Next(8);
+                number = random.Next(8); // Regenerate Number
             }
-
-            list.Add(number);
-            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackKingsBishop));
+            list.Add(number); // Add Number To List
+            this.Pieces.Add(new Piece(Piece.PieceNames.Bishop, this, number, 7, Piece.PieceIdentifierCodes.BlackKingsBishop)); // Place Piece In Pieces Container
             #endregion
 
             #region Placing Rooks
@@ -176,6 +174,8 @@ namespace SharpChess.Model
             {
                 number = random.Next(8);
             }
+
+            #endregion
 
         }
 

@@ -78,8 +78,16 @@ namespace SharpChess.Model
             HashTablePawn.Initialise();
             HashTableCheck.Initialise();
 
-            PlayerWhite = new PlayerWhite();
-            PlayerBlack = new PlayerBlack();
+            if (Type == GameType.Standard)
+            {
+                PlayerWhite = new PlayerWhite();
+                PlayerBlack = new PlayerBlack();
+            }
+            else
+            {
+                PlayerWhite = new PlayerWhite();
+                PlayerBlack = new PlayerBlack(Player.GameType.Chess960);
+            }
 
             PlayerToPlay = PlayerWhite;
             Board.EstablishHashKey();
@@ -566,7 +574,14 @@ namespace SharpChess.Model
         {
             New(string.Empty);
 
-            TestingStuff();
+            if (Type == GameType.Standard)
+            {
+                PlayerBlack = new PlayerBlack(Player.GameType.Standard);
+            }
+            else
+            {
+                PlayerBlack = new PlayerBlack(Player.GameType.Chess960);
+            }
         }
 
         /// <summary>
