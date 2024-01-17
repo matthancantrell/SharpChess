@@ -73,12 +73,6 @@ namespace SharpChess.Model
             Black
         }
 
-        public enum GameType
-        {
-            Standard,
-            Chess960
-        }
-
         /// <summary>
         /// Player intellegence: Human or Computer.
         /// </summary>
@@ -133,8 +127,6 @@ namespace SharpChess.Model
         ///   Gets the player's chess brain. Contains all computer AI chess logic.
         /// </summary>
         public Brain Brain { get; private set; }
-
-        public GameType gameType { get; private set; }
 
         /// <summary>
         ///   Gets a value indicating whether the player can claim a fifty-nove draw.

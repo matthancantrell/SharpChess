@@ -31,6 +31,7 @@ namespace SharpChess.Model
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Reflection;
     using System.Xml;
@@ -63,6 +64,7 @@ namespace SharpChess.Model
         static Game()
         {
             EnableFeatures();
+            Type = GameType.Standard;
             ClockIncrementPerMove = new TimeSpan(0, 0, 0);
             ClockFixedTimePerMove = new TimeSpan(0, 0, 0);
             DifficultyLevel = 1;
@@ -78,16 +80,8 @@ namespace SharpChess.Model
             HashTablePawn.Initialise();
             HashTableCheck.Initialise();
 
-            if (Type == GameType.Standard)
-            {
-                PlayerWhite = new PlayerWhite();
-                PlayerBlack = new PlayerBlack();
-            }
-            else
-            {
-                PlayerWhite = new PlayerWhite();
-                PlayerBlack = new PlayerBlack(Player.GameType.Chess960);
-            }
+            PlayerWhite = new PlayerWhite();
+            PlayerBlack = new PlayerBlack();
 
             PlayerToPlay = PlayerWhite;
             Board.EstablishHashKey();
@@ -476,13 +470,6 @@ namespace SharpChess.Model
             }
         }
 
-        public static void TestingStuff()
-        {
-            Console.WriteLine("<-- TESTING START -->");
-            Console.WriteLine("<-- Game Type: " + Type + " -->");
-            Console.WriteLine("<-- TESTING END -->");
-        }
-
         /// <summary>
         ///   Gets ThreadCounter.
         /// </summary>
@@ -573,15 +560,6 @@ namespace SharpChess.Model
         public static void New()
         {
             New(string.Empty);
-
-            if (Type == GameType.Standard)
-            {
-                PlayerBlack = new PlayerBlack(Player.GameType.Standard);
-            }
-            else
-            {
-                PlayerBlack = new PlayerBlack(Player.GameType.Chess960);
-            }
         }
 
         /// <summary>
@@ -1081,6 +1059,32 @@ namespace SharpChess.Model
             NewInternal(string.Empty);
         }
 
+        public static bool isAnEvenSpace(int space)
+        {
+            if ((space % 2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static int GenerateNewUniqueInt(List<int> list, int number)
+        {
+            Random random = new Random();
+            number = random.Next(8);
+
+            while (list.Contains(number))
+            {
+                number = random.Next(8);
+            }
+
+            list.Add(number);
+            return number;
+        }
+
         /// <summary>
         ///   Start a new game from the specified FEN string position. For internal use only.
         /// </summary>
@@ -1089,7 +1093,94 @@ namespace SharpChess.Model
         {
             if (fenString == string.Empty)
             {
-                fenString = Fen.GameStartPosition;
+                if (Type == GameType.Standard)
+                {
+                    fenString = Fen.GameStartPosition;
+                }
+                else
+                {
+                    Random random = new Random();
+                    List<int> list = new List<int>();
+                    char[] whitePieces = new char[8];
+                    char[] blackPieces = new char[8];
+                    bool BishopOnEvenSquare = false;
+                    int number;
+
+                    number = random.Next(8);
+                    list.Add(number);
+                    blackPieces[number] = 'b';
+                    whitePieces[number] = 'B';
+                    BishopOnEvenSquare = isAnEvenSpace(number);
+
+                    while (list.Contains(number) || BishopOnEvenSquare == isAnEvenSpace(number)) // While The Number Generated Is In The List OR Is Also On The Same Type Of Space As The First Bishop
+                    {
+                        number = random.Next(8); // Regenerate Number
+                    }
+                    list.Add(number); // Add Number To List
+                    blackPieces[number] = 'b';
+                    whitePieces[number] = 'B';
+
+                    int rookOne = random.Next(8);
+                    int rookTwo = random.Next(8);
+
+                    while (true)
+                    {
+                        rookOne = random.Next(8);
+                        rookTwo = random.Next(8);
+
+                        if (!list.Contains(rookOne) && !list.Contains(rookTwo) && rookOne != rookTwo && Math.Abs(rookOne - rookTwo) >= 1)
+                        {
+                            break;
+                        }
+                    }
+
+                    list.Add(rookOne);
+                    list.Add(rookTwo);
+
+                    blackPieces[rookOne] = 'r';
+                    blackPieces[rookTwo] = 'r';
+
+                    whitePieces[rookOne] = 'R';
+                    whitePieces[rookTwo] = 'R';
+
+                    number = random.Next(8);
+                    while (!(number > Math.Min(rookOne, rookTwo) && number < Math.Max(rookOne, rookTwo))) // While The Number Is Less Than The Max Value of RookOne & RookTwo AND Greater Than The Min Value Of RookOne And RookTwo
+                    {
+                        number = random.Next(8);
+                    }
+                    list.Add(number);
+
+                    blackPieces[number] = 'k';
+                    whitePieces[number] = 'K';
+
+                    number = GenerateNewUniqueInt(list, number);
+                    blackPieces[number] = 'q';
+                    whitePieces[number] = 'Q';
+
+                    number = GenerateNewUniqueInt(list, number);
+                    blackPieces[number] = 'n';
+                    whitePieces[number] = 'N';
+
+                    number = GenerateNewUniqueInt(list, number);
+                    blackPieces[number] = 'n';
+                    whitePieces[number] = 'N';
+
+                    foreach (var item in blackPieces)
+                    {
+                        fenString += item;
+                    }
+
+                    fenString += "/pppppppp/8/8/8/8/PPPPPPPP/";
+
+                    foreach (var item in whitePieces)
+                    {
+                        fenString += item;
+                    }
+
+                    fenString += " w KQkq - 0 1";
+
+                    Console.WriteLine(fenString);
+                }
             }
 
             Fen.Validate(fenString);

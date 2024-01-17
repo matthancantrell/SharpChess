@@ -1106,6 +1106,7 @@ namespace SharpChess.Model
             public ValidationException(string strMessage)
             {
                 this.message = strMessage;
+                Console.WriteLine(message);
             }
 
             #endregion

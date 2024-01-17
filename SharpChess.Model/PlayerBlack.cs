@@ -46,24 +46,6 @@ namespace SharpChess.Model
             this.SetPiecesAtStartingPositions();
         }
 
-        public PlayerBlack(GameType gameType)
-        {
-            this.Colour = PlayerColourNames.Black;
-            this.Intellegence = PlayerIntellegenceNames.Computer;
-
-            if (gameType == GameType.Standard)
-            {
-                Console.WriteLine("Black: Standard Start");
-                this.SetPiecesAtStartingPositions();
-            }
-            else
-            {
-                Console.WriteLine("Black: Chess960 Start");
-                Chess960Start();
-                //this.SetPiecesAtStartingPositions();
-            }
-        }
-
         #endregion
 
         #region Public Properties
@@ -145,7 +127,7 @@ namespace SharpChess.Model
             this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 7, 6, Piece.PieceIdentifierCodes.BlackPawn8));
         }
 
-        protected void Chess960Start()
+        /*public override void Chess960Start()
         {
             Random random = new Random();
             List<int> list = new List<int>();
@@ -172,27 +154,73 @@ namespace SharpChess.Model
             int rookOne = random.Next(8);
             int rookTwo = random.Next(8);
 
-            while (list.Contains(rookOne) || list.Contains(rookTwo) || Math.Abs(rookOne - rookTwo) < 1)
+            while(true)
             {
                 rookOne = random.Next(8);
                 rookTwo = random.Next(8);
+
+                if (!list.Contains(rookOne) && !list.Contains(rookTwo) && rookOne != rookTwo && Math.Abs(rookOne - rookTwo) >= 1)
+                {
+                    break;
+                }
             }
 
             list.Add(rookOne);
             list.Add(rookTwo);
 
-            Console.WriteLine("Rook One: " + rookOne);
-            Console.WriteLine("Rook Two: " + rookTwo);
-
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
-
-
+            this.Pieces.Add(new Piece(Piece.PieceNames.Rook, this, rookOne, 7, Piece.PieceIdentifierCodes.BlackQueensRook));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Rook, this, rookTwo, 7, Piece.PieceIdentifierCodes.BlackKingsRook));
             #endregion
 
-        }
+            #region Placing King Between Rooks
+            number = random.Next(8);
+            while (!(number > Math.Min(rookOne, rookTwo) && number < Math.Max(rookOne, rookTwo))) // While The Number Is Less Than The Max Value of RookOne & RookTwo AND Greater Than The Min Value Of RookOne And RookTwo
+            {
+                number = random.Next(8);
+            }
+            list.Add(number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, number, 7, Piece.PieceIdentifierCodes.BlackKing));
+            #endregion
+
+            #region Placing Queen And Knights
+            number = GenerateNewUniqueInt(list, number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Queen, this, number, 7, Piece.PieceIdentifierCodes.BlackQueen));
+
+            number = GenerateNewUniqueInt(list, number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Knight, this, number, 7, Piece.PieceIdentifierCodes.BlackQueensKnight));
+
+            number = GenerateNewUniqueInt(list, number);
+            this.Pieces.Add(new Piece(Piece.PieceNames.Knight, this, number, 7, Piece.PieceIdentifierCodes.BlackKingsKnight));
+            #endregion
+
+            PlacePawns();
+        }*/
+
+/*        public int GenerateNewUniqueInt(List<int> list, int number)
+        {
+            Random random = new Random();
+            number = random.Next(8);
+
+            while (list.Contains(number))
+            {
+                number = random.Next(8);
+            }
+
+            list.Add(number);
+            return number;
+        }*/
+
+/*        public void PlacePawns()
+        {
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 0, 6, Piece.PieceIdentifierCodes.BlackPawn1));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 1, 6, Piece.PieceIdentifierCodes.BlackPawn2));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 2, 6, Piece.PieceIdentifierCodes.BlackPawn3));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 3, 6, Piece.PieceIdentifierCodes.BlackPawn4));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 4, 6, Piece.PieceIdentifierCodes.BlackPawn5));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 5, 6, Piece.PieceIdentifierCodes.BlackPawn6));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 6, 6, Piece.PieceIdentifierCodes.BlackPawn7));
+            this.Pieces.Add(new Piece(Piece.PieceNames.Pawn, this, 7, 6, Piece.PieceIdentifierCodes.BlackPawn8));
+        }*/
 
         #endregion
     }
