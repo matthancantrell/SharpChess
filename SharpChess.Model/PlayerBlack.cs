@@ -169,11 +169,26 @@ namespace SharpChess.Model
             #endregion
 
             #region Placing Rooks
-            number = random.Next(8);
-            while (!list.Contains((int)number))
+            int rookOne = random.Next(8);
+            int rookTwo = random.Next(8);
+
+            while (list.Contains(rookOne) || list.Contains(rookTwo) || Math.Abs(rookOne - rookTwo) < 1)
             {
-                number = random.Next(8);
+                rookOne = random.Next(8);
+                rookTwo = random.Next(8);
             }
+
+            list.Add(rookOne);
+            list.Add(rookTwo);
+
+            Console.WriteLine("Rook One: " + rookOne);
+            Console.WriteLine("Rook Two: " + rookTwo);
+
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+
 
             #endregion
 
