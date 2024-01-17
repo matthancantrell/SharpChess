@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpChess", "SharpChess Game\SharpChess.csproj", "{F5FD2F27-6DCB-453C-B018-0AC8D4BC4109}"
 EndProject
@@ -20,7 +20,9 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SharpChess Setup", "SharpCh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpChess.Model", "SharpChess.Model\SharpChess.Model.csproj", "{EE301A37-33A9-4B7A-BE08-D001057610CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpChess.Model.Tests", "SharpChess.Model.Tests\SharpChess.Model.Tests.csproj", "{7A6D5A21-2856-48C1-B602-B2F575C202F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess Testing", "Chess Testing\Chess Testing.csproj", "{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,19 +60,36 @@ Global
 		{EE301A37-33A9-4B7A-BE08-D001057610CD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EE301A37-33A9-4B7A-BE08-D001057610CD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EE301A37-33A9-4B7A-BE08-D001057610CD}.Release|x86.ActiveCfg = Release|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7A6D5A21-2856-48C1-B602-B2F575C202F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Debug|x86.Build.0 = Debug|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|x86.ActiveCfg = Release|Any CPU
+		{583FA7F7-74B2-4EBD-9C1C-07D0054B0E32}.Release|x86.Build.0 = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Debug|x86.Build.0 = Debug|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E7D11F0-26CF-4D51-B9AF-E961A8C78E84}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDEF78C5-C116-4BD8-BC2B-47CFB643AF2F}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SharpChess Solution.vsmdi
