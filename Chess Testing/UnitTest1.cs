@@ -12,47 +12,40 @@ namespace Chess_Testing
     [TestClass]
     public class UnitTest1
     {
-/*        FenGenerator fg;
+        FenGenerator fg;
+        string chess960Fen;
+        string standardFen;
 
         // This Is How The Board Is Generated.
         [TestInitialize]
         public void TestInitialize()
         {
             fg = new FenGenerator();
-        }*/
+            chess960Fen = fg.Chess960Fen();
+            standardFen = fg.StandardFen();
+        }
 
         [TestMethod]
         public void StandardGameDoesNotEqualChess960()
         {
-            FenGenerator fg = new FenGenerator();
-
-            string standard = fg.StandardFen();
-            string chess960 = fg.Chess960Fen();
-
-            Assert.AreNotEqual(standard, chess960);
+            Assert.AreNotEqual(standardFen, chess960Fen);
         }
 
         [TestMethod]
         public void BothSidesAreTheSame()
         {
-            FenGenerator fg = new FenGenerator();
+            string checkAgainst = chess960Fen.Substring(0, 8); // Captures the first rank (first 8 pieces) in a string
+            chess960Fen = chess960Fen.Remove(0, 8); // Removes the first rank from the original string
 
-            string chess960 = fg.Chess960Fen(); // This string should have TWO instances of the same letters a specific order, the only difference being capitalization
-            string checkAgainst = chess960.Substring(0, 8); // Captures the first rank (first 8 pieces) in a string
-            chess960 = chess960.Remove(0, 8); // Removes the first rank from the original string
-
-            Assert.IsTrue(chess960.ToLower().Contains(checkAgainst.ToLower())); // By ignoring the case, the system should be able to identify that the first and last rank on the board are equal
+            Assert.IsTrue(chess960Fen.ToLower().Contains(checkAgainst.ToLower())); // By ignoring the case, the system should be able to identify that the first and last rank on the board are equal
         }
 
         [TestMethod]
         public void Chess960Random()
         {
-            FenGenerator fg = new FenGenerator();
+            string test = fg.Chess960Fen();
 
-            string one = fg.Chess960Fen();
-            string two = fg.Chess960Fen();
-
-            Assert.AreNotEqual(one, two);
+            Assert.AreNotEqual(chess960Fen, test);
         }
 
         [TestMethod]
