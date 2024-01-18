@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Shadow Include="Test References\SharpChess.Model.accessor" />
+    <None Include="SharpChess.Model.accessor" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpChess Game\SharpChess.csproj">

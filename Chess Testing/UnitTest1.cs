@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using SharpChess;
+using SharpChess.Model;
 
 namespace Chess_Testing
 {
