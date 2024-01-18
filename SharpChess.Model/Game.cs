@@ -1054,144 +1054,27 @@ namespace SharpChess.Model
         /// <summary>
         ///   Start a new game. For internal use only.
         /// </summary>
-        private static void NewInternal()
+        public static string NewInternal()
         {
-            NewInternal(string.Empty);
-        }
-
-        public static bool isAnEvenSpace(int space)
-        {
-            if ((space % 2) == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public static int GenerateNewUniqueInt(List<int> list, int number)
-        {
-            Random random = new Random();
-            number = random.Next(8);
-
-            while (list.Contains(number))
-            {
-                number = random.Next(8);
-            }
-
-            list.Add(number);
-            return number;
-        }
-
-        public static string Chess960Fen()
-        {
-            Random random = new Random();
-            List<int> list = new List<int>();
-            char[] whitePieces = new char[8];
-            char[] blackPieces = new char[8];
-            bool BishopOnEvenSquare = false;
-            int number;
-
-            string fenString = "";
-
-            number = random.Next(8);
-            list.Add(number);
-            blackPieces[number] = 'b';
-            whitePieces[number] = 'B';
-            BishopOnEvenSquare = isAnEvenSpace(number);
-
-            while (list.Contains(number) || BishopOnEvenSquare == isAnEvenSpace(number)) // While The Number Generated Is In The List OR Is Also On The Same Type Of Space As The First Bishop
-            {
-                number = random.Next(8); // Regenerate Number
-            }
-            list.Add(number); // Add Number To List
-            blackPieces[number] = 'b';
-            whitePieces[number] = 'B';
-
-            int rookOne = random.Next(8);
-            int rookTwo = random.Next(8);
-
-            while (true)
-            {
-                rookOne = random.Next(8);
-                rookTwo = random.Next(8);
-
-                if (!list.Contains(rookOne) && !list.Contains(rookTwo) && rookOne != rookTwo && Math.Abs(rookOne - rookTwo) >= 1)
-                {
-                    break;
-                }
-            }
-
-            list.Add(rookOne);
-            list.Add(rookTwo);
-
-            blackPieces[rookOne] = 'r';
-            blackPieces[rookTwo] = 'r';
-
-            whitePieces[rookOne] = 'R';
-            whitePieces[rookTwo] = 'R';
-
-            number = random.Next(8);
-            while (!(number > Math.Min(rookOne, rookTwo) && number < Math.Max(rookOne, rookTwo))) // While The Number Is Less Than The Max Value of RookOne & RookTwo AND Greater Than The Min Value Of RookOne And RookTwo
-            {
-                number = random.Next(8);
-            }
-            list.Add(number);
-
-            blackPieces[number] = 'k';
-            whitePieces[number] = 'K';
-
-            number = GenerateNewUniqueInt(list, number);
-            blackPieces[number] = 'q';
-            whitePieces[number] = 'Q';
-
-            number = GenerateNewUniqueInt(list, number);
-            blackPieces[number] = 'n';
-            whitePieces[number] = 'N';
-
-            number = GenerateNewUniqueInt(list, number);
-            blackPieces[number] = 'n';
-            whitePieces[number] = 'N';
-
-            foreach (var item in blackPieces)
-            {
-                fenString += item;
-            }
-
-            fenString += "/pppppppp/8/8/8/8/PPPPPPPP/";
-
-            foreach (var item in whitePieces)
-            {
-                fenString += item;
-            }
-
-            fenString += " w KQkq - 0 1";
-
-            return fenString;
-        }
-
-        public static string StandardFen()
-        {
-            return Fen.GameStartPosition;
+            return NewInternal(string.Empty);
         }
 
         /// <summary>
         ///   Start a new game from the specified FEN string position. For internal use only.
         /// </summary>
         /// <param name="fenString"> The str fen. </param>
-        private static void NewInternal(string fenString)
+        private static string NewInternal(string fenString)
         {
+            FenGenerator fenGenerator = new FenGenerator();
             if (fenString == string.Empty)
             {
                 if (Type == GameType.Standard)
                 {
-                    fenString = StandardFen();
+                    fenString = fenGenerator.StandardFen();
                 }
                 else
                 {
-                    fenString = Chess960Fen();
+                    fenString = fenGenerator.Chess960Fen();
                 }
             }
 
@@ -1209,6 +1092,8 @@ namespace SharpChess.Model
             Fen.SetBoardPosition(fenString);
             PlayerWhite.Clock.Reset();
             PlayerBlack.Clock.Reset();
+
+            return fenString;
         }
 
         /// <summary>
@@ -1357,5 +1242,126 @@ namespace SharpChess.Model
         }
 
         #endregion
+    }
+
+    public class FenGenerator
+    {
+        public static Random Random = new Random();
+
+        public string Chess960Fen()
+        {
+            List<int> list = new List<int>();
+            char[] whitePieces = new char[8];
+            char[] blackPieces = new char[8];
+            bool BishopOnEvenSquare = false;
+            int number;
+
+            string fenString = "";
+
+            number = Random.Next(8);
+            list.Add(number);
+            blackPieces[number] = 'b';
+            whitePieces[number] = 'B';
+            BishopOnEvenSquare = isAnEvenSpace(number);
+
+            while (list.Contains(number) || BishopOnEvenSquare == isAnEvenSpace(number)) // While The Number Generated Is In The List OR Is Also On The Same Type Of Space As The First Bishop
+            {
+                number = Random.Next(8); // Regenerate Number
+            }
+            list.Add(number); // Add Number To List
+            blackPieces[number] = 'b';
+            whitePieces[number] = 'B';
+
+            int rookOne = Random.Next(8);
+            int rookTwo = Random.Next(8);
+
+            while (true)
+            {
+                rookOne = Random.Next(8);
+                rookTwo = Random.Next(8);
+
+                if (!list.Contains(rookOne) && !list.Contains(rookTwo) && rookOne != rookTwo && Math.Abs(rookOne - rookTwo) >= 1)
+                {
+                    break;
+                }
+            }
+
+            list.Add(rookOne);
+            list.Add(rookTwo);
+
+            blackPieces[rookOne] = 'r';
+            blackPieces[rookTwo] = 'r';
+
+            whitePieces[rookOne] = 'R';
+            whitePieces[rookTwo] = 'R';
+
+            number = Random.Next(8);
+            while (!(number > Math.Min(rookOne, rookTwo) && number < Math.Max(rookOne, rookTwo))) // While The Number Is Less Than The Max Value of RookOne & RookTwo AND Greater Than The Min Value Of RookOne And RookTwo
+            {
+                number = Random.Next(8);
+            }
+            list.Add(number);
+
+            blackPieces[number] = 'k';
+            whitePieces[number] = 'K';
+
+            number = GenerateNewUniqueInt(list, number);
+            blackPieces[number] = 'q';
+            whitePieces[number] = 'Q';
+
+            number = GenerateNewUniqueInt(list, number);
+            blackPieces[number] = 'n';
+            whitePieces[number] = 'N';
+
+            number = GenerateNewUniqueInt(list, number);
+            blackPieces[number] = 'n';
+            whitePieces[number] = 'N';
+
+            foreach (var item in blackPieces)
+            {
+                fenString += item;
+            }
+
+            fenString += "/pppppppp/8/8/8/8/PPPPPPPP/";
+
+            foreach (var item in whitePieces)
+            {
+                fenString += item;
+            }
+
+            fenString += " w KQkq - 0 1";
+
+            return fenString;
+        }
+
+        public bool isAnEvenSpace(int space)
+        {
+            if ((space % 2) == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int GenerateNewUniqueInt(List<int> list, int number)
+        {
+            number = Random.Next(8);
+
+            while (list.Contains(number))
+            {
+                number = Random.Next(8);
+            }
+
+            list.Add(number);
+            return number;
+        }
+
+        public string StandardFen()
+        {
+            return Fen.GameStartPosition;
+        }
     }
 }

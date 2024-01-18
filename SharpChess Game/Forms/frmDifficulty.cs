@@ -163,9 +163,9 @@ namespace SharpChess
         /// The rad level.
         /// </summary>
         private RadioButton radLevel;
-        private RadioButton chessStandard_radioButton;
+        public RadioButton chessStandard_radioButton;
         private GroupBox groupBox1;
-        private RadioButton chess960_radioButton;
+        public RadioButton chess960_radioButton;
 
         /// <summary>
         /// The trk level.
@@ -797,7 +797,7 @@ namespace SharpChess
         /// <param name="e">
         /// The e.
         /// </param>
-        private void btnOK_Click(object sender, EventArgs e)
+        public void btnOK_Click(object sender, EventArgs e)
         {
             Game.DifficultyLevel = this.radLevel.Checked ? this.trkLevel.Value : 0;
             Game.EnablePondering = this.chkEnablePondering.Checked;

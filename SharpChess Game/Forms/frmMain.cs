@@ -1994,6 +1994,7 @@ namespace SharpChess
             this.pnlEdging.Name = "pnlEdging";
             this.pnlEdging.Size = new System.Drawing.Size(544, 496);
             this.pnlEdging.TabIndex = 35;
+            this.pnlEdging.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlEdging_Paint);
             // 
             // groupBox1
             // 
@@ -3607,5 +3608,10 @@ namespace SharpChess
         }
 
         #endregion
+
+        private void pnlEdging_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
